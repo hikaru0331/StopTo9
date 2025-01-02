@@ -1,0 +1,18 @@
+﻿@startuml
+hide empty members
+
+class TimerPresenter {
+ 
+}
+
+class TimerView {
+ 
+}
+
+class TimerModel {
+ 
+}
+
+ICard <|.. SampleCard
+
+@enduml
