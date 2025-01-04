@@ -18,6 +18,8 @@ public class TimerPresenter : MonoBehaviour
         _model = new TimerModel();
         _view.Initialize();
         
+        isStopped = false;
+        
         Bind();
         SetEvents();
     }
@@ -80,7 +82,6 @@ public class TimerPresenter : MonoBehaviour
     {
         PlayerPrefs.SetInt("NowScore", _model.ClearCount.Value);
         PlayerPrefs.Save();
-        _model.ResetClearCount();
         SceneManager.LoadScene("Result");
     }
 
