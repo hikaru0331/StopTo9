@@ -20,21 +20,47 @@ public class TimerModel
         _clearCount = new ReactiveProperty<int>(0);
     }
 
-    // タイマーをリセットする
+    /// <summary>
+    /// タイマーをリセットするメソッド
+    /// </summary>
     public void ResetTimer()
     {
         _timer.Value = InGameConst.MIN_TIMER_VALUE;
     }
 
-    // タイマーを更新する
+    /// <summary>
+    /// タイマーを更新するメソッド。範囲外の整数値も制限している
+    /// </summary>
+    /// <param name="deltaTime"></param>
+    /// <param name="timeScale"></param>
     public void UpdateTimer(float deltaTime, float timeScale)
     {
-        if (_timer.Value > InGameConst.MAX_TIMER_VALUE)
+        if (_timer.Value >= InGameConst.MAX_TIMER_VALUE)
         {
             _timer.Value = InGameConst.MIN_TIMER_VALUE;
         }
 
         _timer.Value += deltaTime * timeScale;
+        
+        // 範囲外の値を制限
+        _timer.Value = Mathf.Clamp(_timer.Value, InGameConst.MIN_TIMER_VALUE, InGameConst.MAX_TIMER_VALUE);
+    }
+    
+    /// <summary>
+    /// 表示用のタイマー値を取得するメソッド (少数を切り捨てた整数値)
+    /// </summary>
+    public int GetTimerDisplayValue()
+    {
+        return Mathf.FloorToInt(_timer.Value);
+    }
+
+    /// <summary>
+    /// クリア条件を満たしているか判定
+    /// </summary>
+    public bool IsClearConditionMet()
+    {
+        // 表示上の数値ではなく内部値で判定
+        return _timer.Value >= InGameConst.MIN_CLEAR_TIME && _timer.Value <= InGameConst.MAX_CLEAR_TIME;
     }
     
     public void AddClearCount()

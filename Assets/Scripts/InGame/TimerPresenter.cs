@@ -11,7 +11,7 @@ public class TimerPresenter : MonoBehaviour
     
     private bool isStopped = false;
 
-    private float timeScale = 1.0f;
+    private float timeScale = InGameConst.DEFAULT_TIMESCALE;
     
     void Start()
     {
@@ -26,7 +26,7 @@ public class TimerPresenter : MonoBehaviour
     {
         // ModelのTimingの値が変わった際に、Viewを更新する
         _model.Timer
-            .Subscribe(_view.SetTimerText)
+            .Subscribe(_ => _view.SetTimerText(_model.GetTimerDisplayValue())) // タイマー表示用メソッドを使用
             .AddTo(gameObject);
         
         // ModelのClearCountの値が変わった際に、Viewを更新する
@@ -56,11 +56,12 @@ public class TimerPresenter : MonoBehaviour
     {
         isStopped = true;
         
-        if(_model.Timer.Value >= InGameConst.MIN_CLEAR_TIME && _model.Timer.Value <= InGameConst.MAX_CLEAR_TIME)
+        // クリア条件の判定はTimerModelで行っている
+        if (_model.IsClearConditionMet())
         {
             _model.AddClearCount();
             _view.ShowClearPanel();
-            timeScale += 0.3f;
+            timeScale += InGameConst.ADDITTIONAL_TIMESCALE;
         }
         else
         {
@@ -77,8 +78,7 @@ public class TimerPresenter : MonoBehaviour
 
     private void OnFailedButttonClicked()
     {
-        //_model.ClearCount.Value
-        PlayerPrefs.SetInt("NowScore", 92);
+        PlayerPrefs.SetInt("NowScore", _model.ClearCount.Value);
         PlayerPrefs.Save();
         _model.ResetClearCount();
         SceneManager.LoadScene("Result");
@@ -88,6 +88,9 @@ public class TimerPresenter : MonoBehaviour
     {
         _model.ResetTimer();
         _model.ResetClearCount();
+        
+        timeScale = InGameConst.DEFAULT_TIMESCALE;
+        
         _view.HideFailedPanel();
         isStopped = false;
     }

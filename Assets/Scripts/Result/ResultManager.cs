@@ -29,6 +29,7 @@ public class ResultManager : MonoBehaviour
 
         titleButton.onClick.AddListener(() =>
         {
+            PlayerPrefs.DeleteAll();
             // タイトル画面に遷移
             SceneManager.LoadScene("Title");
         });

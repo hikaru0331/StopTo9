@@ -68,9 +68,9 @@ public class TimerView : MonoBehaviour
     /// タイマーの表示処理
     /// </summary>
     /// <param name="time"></param>
-    public void SetTimerText(float time)
+    public void SetTimerText(int time) // 表示値を整数で受け取るよう変更
     {
-        timerText.text = time.ToString("F0");
+        timerText.text = time.ToString();
     }
 
     /// <summary>
