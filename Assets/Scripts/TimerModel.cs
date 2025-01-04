@@ -41,4 +41,9 @@ public class TimerModel
     {
         _clearCount.Value++;
     }
+
+    public void ResetClearCount()
+    {
+        _clearCount.Value = 0;
+    }
 }

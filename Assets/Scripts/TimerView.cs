@@ -26,6 +26,9 @@ public class TimerView : MonoBehaviour
     [SerializeField]
     private Button failedButton;
     public Action OnFailedButtonClicked;
+    [SerializeField]
+    private Button retryButton;
+    public Action OnRetryButtonClicked;
     
     // 初期化処理
     public void Initialize()
@@ -36,6 +39,7 @@ public class TimerView : MonoBehaviour
         clearPanel.SetActive(false);
         
         failedButton.onClick.AddListener(OnFailedButtonClickedEvent);
+        retryButton.onClick.AddListener(OnRetryButtonClickedEvent);
         failedPanel.SetActive(false);
     }
 
@@ -54,6 +58,11 @@ public class TimerView : MonoBehaviour
     {
         OnFailedButtonClicked?.Invoke();
     }
+
+    public void OnRetryButtonClickedEvent()
+    {
+        OnRetryButtonClicked?.Invoke();
+    }
     
     /// <summary>
     /// タイマーの表示処理
@@ -70,7 +79,7 @@ public class TimerView : MonoBehaviour
     /// <param name="count"></param>
     public void SetClearCountText(int count)
     {
-        clearCountText.text = count.ToString();
+        clearCountText.text = count.ToString("D3");
     }
     
     // クリア時のパネルの表示・非表示

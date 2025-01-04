@@ -40,6 +40,7 @@ public class TimerPresenter : MonoBehaviour
         _view.OnStopButtonClicked += OnStopButtonClicked;
         _view.OnClearButtonClicked += OnClearButtonClicked;
         _view.OnFailedButtonClicked += OnFailedButttonClicked;
+        _view.OnRetryButtonClicked += OnRetryButttonClicked;
     }
 
     // Update is called once per frame
@@ -59,7 +60,7 @@ public class TimerPresenter : MonoBehaviour
         {
             _model.AddClearCount();
             _view.ShowClearPanel();
-            timeScale += 0.5f;
+            timeScale += 0.3f;
         }
         else
         {
@@ -76,8 +77,17 @@ public class TimerPresenter : MonoBehaviour
 
     private void OnFailedButttonClicked()
     {
-        PlayerPrefs.SetInt("HighScore", _model.ClearCount.Value);
+        PlayerPrefs.SetInt("NowScore", _model.ClearCount.Value);
         PlayerPrefs.Save();
+        _model.ResetClearCount();
         SceneManager.LoadScene("Result");
+    }
+
+    private void OnRetryButttonClicked()
+    {
+        _model.ResetTimer();
+        _model.ResetClearCount();
+        _view.HideFailedPanel();
+        isStopped = false;
     }
 }
