@@ -23,15 +23,15 @@ public class TimerModel
     // タイマーをリセットする
     public void ResetTimer()
     {
-        _timer.Value = 0;
+        _timer.Value = InGameConst.MIN_TIMER_VALUE;
     }
 
     // タイマーを更新する
     public void UpdateTimer(float deltaTime, float timeScale)
     {
-        if (_timer.Value > 9.9f)
+        if (_timer.Value > InGameConst.MAX_TIMER_VALUE)
         {
-            _timer.Value = 0;
+            _timer.Value = InGameConst.MIN_TIMER_VALUE;
         }
 
         _timer.Value += deltaTime * timeScale;

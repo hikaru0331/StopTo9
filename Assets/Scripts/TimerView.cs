@@ -14,21 +14,32 @@ public class TimerView : MonoBehaviour
     
     [SerializeField]
     private TextMeshProUGUI clearCountText;
-
+    
     [SerializeField]
     private GameObject clearPanel;
     [SerializeField]
     private Button clearButton;
     public Action OnClearButtonClicked;
+
+    [SerializeField] 
+    private GameObject failedPanel;
+    [SerializeField]
+    private Button failedButton;
+    public Action OnFailedButtonClicked;
     
+    // 初期化処理
     public void Initialize()
     {
         stopButton.onClick.AddListener(OnStopButtonClickedEvent);
 
         clearButton.onClick.AddListener(OnClearButtonClickedEvent);
         clearPanel.SetActive(false);
+        
+        failedButton.onClick.AddListener(OnFailedButtonClickedEvent);
+        failedPanel.SetActive(false);
     }
 
+    // イベントの設定
     public void OnStopButtonClickedEvent()
     {
         OnStopButtonClicked?.Invoke();
@@ -38,17 +49,31 @@ public class TimerView : MonoBehaviour
     {
         OnClearButtonClicked?.Invoke();
     }
+
+    public void OnFailedButtonClickedEvent()
+    {
+        OnFailedButtonClicked?.Invoke();
+    }
     
+    /// <summary>
+    /// タイマーの表示処理
+    /// </summary>
+    /// <param name="time"></param>
     public void SetTimerText(float time)
     {
         timerText.text = time.ToString("F0");
     }
 
+    /// <summary>
+    /// クリア回数の表示処理
+    /// </summary>
+    /// <param name="count"></param>
     public void SetClearCountText(int count)
     {
         clearCountText.text = count.ToString();
     }
     
+    // クリア時のパネルの表示・非表示
     public void ShowClearPanel()
     {
         clearPanel.SetActive(true);
@@ -57,5 +82,16 @@ public class TimerView : MonoBehaviour
     public void HideClearPanel()
     {
         clearPanel.SetActive(false);
+    }
+    
+    // 失敗時のパネルの表示・非表示
+    public void ShowFailedPanel()
+    {
+        failedPanel.SetActive(true);
+    }
+    
+    public void HideFailedPanel()
+    {
+        failedPanel.SetActive(false);
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UniRx;
+using UnityEngine.SceneManagement;
 
 public class TimerPresenter : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class TimerPresenter : MonoBehaviour
     private TimerView _view;
     
     private bool isStopped = false;
+
+    private float timeScale = 1.0f;
     
     void Start()
     {
@@ -35,7 +38,8 @@ public class TimerPresenter : MonoBehaviour
     private void SetEvents()
     {
         _view.OnStopButtonClicked += OnStopButtonClicked;
-        _view.OnClearButtonClicked += OnClearClicked;
+        _view.OnClearButtonClicked += OnClearButtonClicked;
+        _view.OnFailedButtonClicked += OnFailedButttonClicked;
     }
 
     // Update is called once per frame
@@ -43,7 +47,7 @@ public class TimerPresenter : MonoBehaviour
     {
         if (!isStopped)
         {
-            _model.UpdateTimer(Time.deltaTime, 2);
+            _model.UpdateTimer(Time.deltaTime, timeScale);
         }
     }
     
@@ -51,22 +55,29 @@ public class TimerPresenter : MonoBehaviour
     {
         isStopped = true;
         
-        if(_model.Timer.Value >= 9.0f && _model.Timer.Value <= 9.9f)
+        if(_model.Timer.Value >= InGameConst.MIN_CLEAR_TIME && _model.Timer.Value <= InGameConst.MAX_CLEAR_TIME)
         {
             _model.AddClearCount();
             _view.ShowClearPanel();
+            timeScale += 0.5f;
         }
         else
         {
-            _model.ResetTimer();
-            isStopped = false;
+            _view.ShowFailedPanel();
         }
     }
 
-    private void OnClearClicked()
+    private void OnClearButtonClicked()
     {
         _model.ResetTimer();
         _view.HideClearPanel();
         isStopped = false;
+    }
+
+    private void OnFailedButttonClicked()
+    {
+        PlayerPrefs.SetInt("HighScore", _model.ClearCount.Value);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("Result");
     }
 }
