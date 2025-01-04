@@ -77,7 +77,8 @@ public class TimerPresenter : MonoBehaviour
 
     private void OnFailedButttonClicked()
     {
-        PlayerPrefs.SetInt("NowScore", _model.ClearCount.Value);
+        //_model.ClearCount.Value
+        PlayerPrefs.SetInt("NowScore", 92);
         PlayerPrefs.Save();
         _model.ResetClearCount();
         SceneManager.LoadScene("Result");
