@@ -1,21 +1,23 @@
 using System;
 using UniRx;
+using UnityEngine;
 
 public class TimerModel
 {
     // 内部タイマーのReactiveProperty
     private readonly ReactiveProperty<float> _timer;
-
     // 外部公開用のReadOnlyReactiveProperty
     public IReadOnlyReactiveProperty<float> Timer => _timer;
-
-    // タイマーが設定されたときのイベント
-    public event Action<float> OnUpdateTimer;
+    
+    // クリア回数のReactiveProperty
+    private readonly ReactiveProperty<int> _clearCount;
+    public IReadOnlyReactiveProperty<int> ClearCount => _clearCount;
 
     // コンストラクタで初期化
     public TimerModel()
     {
         _timer = new ReactiveProperty<float>(0);
+        _clearCount = new ReactiveProperty<int>(0);
     }
 
     // タイマーをリセットする
@@ -25,15 +27,18 @@ public class TimerModel
     }
 
     // タイマーを更新する
-    public void UpdateTimer(float deltaTime)
+    public void UpdateTimer(float deltaTime, float timeScale)
     {
-        _timer.Value += deltaTime;
-
-        if (_timer.Value >= 10)
+        if (_timer.Value > 9.9f)
         {
             _timer.Value = 0;
         }
-        
-        OnUpdateTimer?.Invoke(_timer.Value);
+
+        _timer.Value += deltaTime * timeScale;
+    }
+    
+    public void AddClearCount()
+    {
+        _clearCount.Value++;
     }
 }

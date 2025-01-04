@@ -10,11 +10,23 @@ public class TimerView : MonoBehaviour
     public Action OnStopButtonClicked;
     
     [SerializeField]
-    private TextMeshPro timerText;
+    private TextMeshProUGUI timerText;
+    
+    [SerializeField]
+    private TextMeshProUGUI clearCountText;
 
+    [SerializeField]
+    private GameObject clearPanel;
+    [SerializeField]
+    private Button clearButton;
+    public Action OnClearButtonClicked;
+    
     public void Initialize()
     {
         stopButton.onClick.AddListener(OnStopButtonClickedEvent);
+
+        clearButton.onClick.AddListener(OnClearButtonClickedEvent);
+        clearPanel.SetActive(false);
     }
 
     public void OnStopButtonClickedEvent()
@@ -22,8 +34,28 @@ public class TimerView : MonoBehaviour
         OnStopButtonClicked?.Invoke();
     }
     
+    public void OnClearButtonClickedEvent()
+    {
+        OnClearButtonClicked?.Invoke();
+    }
+    
     public void SetTimerText(float time)
     {
-        timerText.text = time.ToString("F1");
+        timerText.text = time.ToString("F0");
+    }
+
+    public void SetClearCountText(int count)
+    {
+        clearCountText.text = count.ToString();
+    }
+    
+    public void ShowClearPanel()
+    {
+        clearPanel.SetActive(true);
+    }
+    
+    public void HideClearPanel()
+    {
+        clearPanel.SetActive(false);
     }
 }
