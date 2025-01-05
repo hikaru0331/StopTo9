@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 103125830}
   - component: {fileID: 103125829}
   - component: {fileID: 103125828}
+  - component: {fileID: 103125831}
   m_Layer: 5
   m_Name: RetryButton
   m_TagString: Untagged
@@ -376,6 +377,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103125826}
   m_CullTransparentMesh: 1
+--- !u!114 &103125831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103125826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  algorithm: 0
+  size: 16.9
+  spread: 0
+  useGlobalAngle: 0
+  offsetAngle: 45
+  offsetDistance: 10.3
+  offset: {x: 7.2831993, y: -7.2832003}
+  color: {r: 0, g: 0, b: 0, a: 1}
+  inset: 0
+  blendMode: 0
+  useCasterAlpha: 1
+  ignoreCasterColor: 0
+  deallocateOnDisable: 0
+  disableFitCompensation: 0
+  shadowAsSibling: 0
+  cutout: 0
+  baked: 0
+  modifiedFromInspector: 0
+  bakedShadows: []
 --- !u!1 &212039409
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &728926183
 RectTransform:
   m_ObjectHideFlags: 0
@@ -895,7 +927,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0010070801, y: -0.00050354004}
+  m_AnchoredPosition: {x: 0.0009765625, y: -0.00048828125}
   m_SizeDelta: {x: -0.000061035, y: 0.0010376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &728926184
@@ -953,7 +985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &737673321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -973,7 +1005,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00050354004}
+  m_AnchoredPosition: {x: 0, y: -0.00048828125}
   m_SizeDelta: {x: -0.000061035, y: 0.0010376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &737673322
@@ -1133,6 +1165,7 @@ GameObject:
   - component: {fileID: 835427101}
   - component: {fileID: 835427100}
   - component: {fileID: 835427099}
+  - component: {fileID: 835427102}
   m_Layer: 5
   m_Name: FailedButton
   m_TagString: Untagged
@@ -1242,6 +1275,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835427097}
   m_CullTransparentMesh: 1
+--- !u!114 &835427102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835427097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  algorithm: 0
+  size: 16.9
+  spread: 0
+  useGlobalAngle: 0
+  offsetAngle: 45
+  offsetDistance: 10.3
+  offset: {x: 7.2831993, y: -7.2832003}
+  color: {r: 0, g: 0, b: 0, a: 1}
+  inset: 0
+  blendMode: 0
+  useCasterAlpha: 1
+  ignoreCasterColor: 0
+  deallocateOnDisable: 0
+  disableFitCompensation: 0
+  shadowAsSibling: 0
+  cutout: 0
+  baked: 0
+  modifiedFromInspector: 0
+  bakedShadows: []
 --- !u!1 &954125443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,6 +1867,7 @@ GameObject:
   - component: {fileID: 1403428677}
   - component: {fileID: 1403428676}
   - component: {fileID: 1403428675}
+  - component: {fileID: 1403428678}
   m_Layer: 5
   m_Name: ClearButton
   m_TagString: Untagged
@@ -1912,6 +1977,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403428673}
   m_CullTransparentMesh: 1
+--- !u!114 &1403428678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403428673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  algorithm: 0
+  size: 16.9
+  spread: 0
+  useGlobalAngle: 0
+  offsetAngle: 45
+  offsetDistance: 10.3
+  offset: {x: 7.2831993, y: -7.2832003}
+  color: {r: 0, g: 0, b: 0, a: 1}
+  inset: 0
+  blendMode: 0
+  useCasterAlpha: 1
+  ignoreCasterColor: 0
+  deallocateOnDisable: 0
+  disableFitCompensation: 0
+  shadowAsSibling: 0
+  cutout: 0
+  baked: 0
+  modifiedFromInspector: 0
+  bakedShadows: []
 --- !u!1 &1477337155
 GameObject:
   m_ObjectHideFlags: 0
