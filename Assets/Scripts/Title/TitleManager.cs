@@ -15,12 +15,14 @@ public class TitleManager : MonoBehaviour
     {
         startButton.onClick.AddListener(() =>
         {
+            AudioManager.instance_AudioManager.PlaySE(0);
             // ゲームシーンに遷移
             SceneManager.LoadScene("InGame");
         });
         
         highScoreButton.onClick.AddListener(() =>
         {
+            AudioManager.instance_AudioManager.PlaySE(0);
             // ハイスコア画面に遷移
             SceneManager.LoadScene("HighScore");
         });

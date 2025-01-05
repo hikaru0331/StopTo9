@@ -2,6 +2,7 @@ using UnityEngine;
 using UniRx;
 using UnityEngine.SceneManagement;
 using unityroom.Api;
+using Cysharp.Threading.Tasks;
 
 public class TimerPresenter : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class TimerPresenter : MonoBehaviour
     
     private void SetEvents()
     {
-        _view.OnStopButtonClicked += OnStopButtonClicked;
+        _view.OnStopButtonClicked += () => OnStopButtonClicked().Forget();
         _view.OnClearButtonClicked += OnClearButtonClicked;
         _view.OnFailedButtonClicked += OnFailedButttonClicked;
         _view.OnRetryButtonClicked += OnRetryButttonClicked;
@@ -55,25 +56,33 @@ public class TimerPresenter : MonoBehaviour
         }
     }
     
-    private void OnStopButtonClicked()
+    async UniTask OnStopButtonClicked()
     {
+        var token = this.GetCancellationTokenOnDestroy();
+        
         isStopped = true;
         
         // クリア条件の判定はTimerModelで行っている
         if (_model.IsClearConditionMet())
         {
+            AudioManager.instance_AudioManager.PlaySE(1);
+            await UniTask.Delay(500, cancellationToken: token);
+            
             _model.AddClearCount();
             _view.ShowClearPanel();
             timeScale += InGameConst.ADDITTIONAL_TIMESCALE;
         }
         else
         {
+            AudioManager.instance_AudioManager.PlaySE(2);
+            await UniTask.Delay(500, cancellationToken: token);
             _view.ShowFailedPanel();
         }
     }
 
     private void OnClearButtonClicked()
     {
+        AudioManager.instance_AudioManager.PlaySE(0);
         _model.ResetTimer();
         _view.HideClearPanel();
         isStopped = false;
@@ -81,6 +90,8 @@ public class TimerPresenter : MonoBehaviour
 
     private void OnFailedButttonClicked()
     {
+        AudioManager.instance_AudioManager.PlaySE(0);
+        
         // 今回のスコアを保存
         PlayerPrefs.SetInt("NowScore", _model.ClearCount.Value);
         
@@ -98,6 +109,8 @@ public class TimerPresenter : MonoBehaviour
 
     private void OnRetryButttonClicked()
     {
+        AudioManager.instance_AudioManager.PlaySE(0);
+        
         _model.ResetTimer();
         _model.ResetClearCount();
         
