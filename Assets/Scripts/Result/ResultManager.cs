@@ -25,6 +25,8 @@ public class ResultManager : MonoBehaviour
 
         titleButton.onClick.AddListener(() =>
         {
+            AudioManager.instance_AudioManager.PlaySE(0);
+            
             PlayerPrefs.DeleteKey("NowScore");
             // タイトル画面に遷移
             SceneManager.LoadScene("Title");
@@ -53,6 +55,8 @@ public class ResultManager : MonoBehaviour
     
     private void PostOnX()
     {
+        AudioManager.instance_AudioManager.PlaySE(0);
+        
         try
         {
             naichilab.UnityRoomTweet.Tweet(

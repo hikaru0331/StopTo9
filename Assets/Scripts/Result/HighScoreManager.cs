@@ -25,6 +25,7 @@ public class HighScoreManager : MonoBehaviour
 
         titleButton.onClick.AddListener(() =>
         {
+            AudioManager.instance_AudioManager.PlaySE(0);
             // タイトル画面に遷移
             SceneManager.LoadScene("Title");
         });
@@ -52,6 +53,7 @@ public class HighScoreManager : MonoBehaviour
     
     private void PostOnX()
     {
+        AudioManager.instance_AudioManager.PlaySE(0);
         try
         {
             naichilab.UnityRoomTweet.Tweet(
