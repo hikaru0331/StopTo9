@@ -21,11 +21,7 @@ public class ResultManager : MonoBehaviour
     {
         ButtonPanel.SetActive(false);
         
-        postOnXButton.onClick.AddListener(() =>
-        {
-            // ポストする
-            Debug.Log("Post to X");
-        });
+        postOnXButton.onClick.AddListener(PostOnX);
 
         titleButton.onClick.AddListener(() =>
         {
@@ -53,5 +49,24 @@ public class ResultManager : MonoBehaviour
             resultText.text = targetScore.ToString("D3");
             ButtonPanel.SetActive(true);
         });
+    }
+    
+    private void PostOnX()
+    {
+        try
+        {
+            naichilab.UnityRoomTweet.Tweet(
+                "stopto9",
+                "【#9を目指すゲーム】で遊びました！\n" +
+                "unityroomで公開中のゲーム「#9を目指すゲーム」で遊びました！\n" +
+                "今回のスコアは" + PlayerPrefs.GetInt("NowScore") + "点でした！",
+                "9を目指すゲーム",
+                "unity1week"
+            );
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("ツイートに失敗しました: " + e.Message);
+        }
     }
 }
