@@ -1,6 +1,7 @@
 using UnityEngine;
 using UniRx;
 using UnityEngine.SceneManagement;
+using unityroom.Api;
 
 public class TimerPresenter : MonoBehaviour
 {
@@ -80,7 +81,17 @@ public class TimerPresenter : MonoBehaviour
 
     private void OnFailedButttonClicked()
     {
+        // 今回のスコアを保存
         PlayerPrefs.SetInt("NowScore", _model.ClearCount.Value);
+        
+        // ハイスコアを更新、unityroomのランキングに送信
+        if (PlayerPrefs.GetInt("HighScore") < _model.ClearCount.Value)
+        {
+            PlayerPrefs.SetInt("HighScore", _model.ClearCount.Value);
+            UnityroomApiClient.Instance.SendScore
+                (1, PlayerPrefs.GetInt("HighScore"), ScoreboardWriteMode.HighScoreDesc);
+        }
+        
         PlayerPrefs.Save();
         SceneManager.LoadScene("Result");
     }

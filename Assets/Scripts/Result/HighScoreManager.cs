@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class ResultManager : MonoBehaviour
+public class HighScoreManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI resultText;
@@ -25,7 +25,6 @@ public class ResultManager : MonoBehaviour
 
         titleButton.onClick.AddListener(() =>
         {
-            PlayerPrefs.DeleteKey("NowScore");
             // タイトル画面に遷移
             SceneManager.LoadScene("Title");
         });
@@ -35,7 +34,7 @@ public class ResultManager : MonoBehaviour
     
     private void PlayReslutAnimation()
     {
-        int targetScore = PlayerPrefs.GetInt("NowScore");
+        int targetScore = PlayerPrefs.GetInt("HighScore");
         resultText.DOCounter(0, targetScore, 3.0f).OnUpdate(() =>
         {
             // 現在の値を取得して3桁形式にフォーマット
@@ -59,7 +58,7 @@ public class ResultManager : MonoBehaviour
                 "stopto9",
                 "【#9を目指すゲーム】で遊びました！\n" +
                 "unityroomで公開中のゲーム「#9を目指すゲーム」で遊びました！\n" +
-                "今回のスコアは" + PlayerPrefs.GetInt("NowScore") + "点でした！",
+                "私のハイスコアは" + PlayerPrefs.GetInt("HighScore") + "点です！",
                 "9を目指すゲーム",
                 "unity1week"
             );
