@@ -28,5 +28,5 @@ public static class InGameConst
     /// <summary>
     /// クリア時にタイマーが加速するスケール
     /// </summary>
-    public const float ADDITTIONAL_TIMESCALE = 0.1f;
+    public const float ADDITTIONAL_TIMESCALE = 0.5f;
 }
