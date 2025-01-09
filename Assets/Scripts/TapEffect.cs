@@ -1,26 +1,23 @@
+using System;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UniRx;
 
 public class TapEffect : MonoBehaviour
 {
-    private ParticleSystem _particleSystem;
-    [SerializeField]
-    private Camera _camera;
- 
-    private void Start()
+    private ParticleSystem particle;
+
+    private void Awake()
     {
-        _particleSystem = GetComponent<ParticleSystem>();
+        particle = GetComponent<ParticleSystem>();
     }
- 
-    void Update()
+
+    public IObservable<Unit> PlayParticle(Vector3 position)
     {
-        if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
-        {
-            var pos = Input.mousePosition;
-            pos.z = 10f; 
-                 
-            transform.position = _camera.ScreenToWorldPoint(pos);
-            _particleSystem.Play();
-        }
+        transform.position = position;
+        particle.Play();
+
+        // ParticleSystemのstartLifetimeに設定した秒数が経ったら終了通知
+        return Observable.Timer(TimeSpan.FromSeconds(particle.main.startLifetimeMultiplier))
+            .ForEachAsync(_ => particle.Stop());
     }
 }
